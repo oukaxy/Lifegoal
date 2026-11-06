@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeGoal — Papan Pencapaian Kehidupan</title>
+  <meta name="description" content="Papan pencapaian kehidupan bergaya medieval. Tandai perjalanan hidupmu seperti menyelesaikan quest.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=MedievalSharp&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="bg-noise" aria-hidden="true"></div>
+
+  <!-- ============ HERO: KARTU PETUALANG ============ -->
+  <header class="hero parchment" id="hero">
+    <div class="torch torch-left" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
+    <div class="torch torch-right" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
+
+    <div class="hero-inner">
+      <div class="glyph glyph-crest" aria-hidden="true"><span class="glyph-icon">👑</span></div>
+
+      <div class="hero-main">
+        <p class="hero-eyebrow">✦ Papan Pencapaian Kehidupan ✦</p>
+        <h1 class="hero-title">LIFEGOAL</h1>
+
+        <div class="player-row">
+          <span class="player-name" id="playerName" contenteditable="true" spellcheck="false" title="Klik untuk mengubah nama">Petualang Tanpa Nama</span>
+          <span class="level-chip" id="levelChip">Lv. 1 · Petualang Tak Bertuan</span>
+        </div>
+
+        <div class="xp-row">
+          <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+          <p class="xp-numbers" id="xpNumbers">0 / 300 XP ke level berikut</p>
+        </div>
+
+        <div class="stat-row" id="statRow"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ FILTER ============ -->
+  <section class="filters" aria-label="Filter pencapaian">
+    <div class="filter-row" id="catFilters"></div>
+    <div class="filter-row" id="rarityFilters"></div>
+  </section>
+
+  <!-- ============ PAPAN PENCAPAIAN ============ -->
+  <main class="board parchment">
+    <div class="board-head">
+      <h2>⚜ Papan Petualangan ⚜</h2>
+      <p class="board-count" id="boardCount"></p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer class="foot">
+    <p>Selesaikan petualanganmu — satu pencapaian dalam satu waktu.</p>
+    <button class="link-btn" id="resetBtn" type="button">Ulangi Semua</button>
+  </footer>
+
+  <!-- ============ MODAL DETAIL ============ -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal parchment" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"></div>
+  </div>
+
+  <!-- ============ TOAST UNLOCK ============ -->
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+  <!-- ============ OVERLAY LEVEL UP ============ -->
+  <div class="levelup" id="levelUp" hidden></div>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
