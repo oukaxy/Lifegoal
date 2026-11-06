@@ -4,6 +4,11 @@
  * overlay level-up. Motion grammar: entrance <300ms ease-out,
  * exit lebih cepat, partikel hanya di momen langka.
  * Degradasi anggun tanpa GSAP / reduced-motion.
+ *
+ * Catatan: reveal kartu sengaja TIDAK pakai ScrollTrigger —
+ * kartu yang sudah berada di atas garis viewport saat render
+ * tidak pernah memicu onEnter dan tetap opacity 0. Tween
+ * langsung menjamin kartu selalu terlihat di posisi scroll mana pun.
  * ============================================================ */
 
 window.LIFEGOAL = window.LIFEGOAL || {};
@@ -15,8 +20,6 @@ window.LIFEGOAL = window.LIFEGOAL || {};
   const reduced =
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (g && window.ScrollTrigger) g.registerPlugin(window.ScrollTrigger);
 
   function fmt(n) {
     return n.toLocaleString('id-ID');
@@ -87,30 +90,27 @@ window.LIFEGOAL = window.LIFEGOAL || {};
       });
     },
 
-    /* ---------- Reveal kartu (scroll) ---------- */
+    /* ---------- Reveal kartu (langsung, tanpa scroll trigger) ---------- */
     cardsIn(grid) {
       const cards = grid.querySelectorAll('.card');
       if (!cards.length) return;
-      if (g && window.ScrollTrigger) {
-        window.ScrollTrigger.getAll().forEach((t) => t.kill());
-        gsap.set(cards, { opacity: 0, y: 16 });
-        window.ScrollTrigger.batch(cards, {
-          start: 'top 95%',
-          once: true,
-          onEnter: (batch) =>
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              duration: 0.4,
-              stagger: 0.05,
-              ease: 'power2.out',
-              overwrite: true,
-            }),
-        });
-        window.ScrollTrigger.refresh();
-      } else {
+      if (!g || reduced) {
         cards.forEach((c) => (c.style.opacity = 1));
+        return;
       }
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 14 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.35,
+          stagger: 0.04,
+          ease: 'power2.out',
+          overwrite: true,
+          clearProps: 'transform',
+        }
+      );
     },
 
     /* ---------- Toast (momen langka: unlock / tambah / edit) ---------- */

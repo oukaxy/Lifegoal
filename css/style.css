@@ -651,9 +651,12 @@ button {
   position: fixed;
   inset: 0;
   z-index: 60;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: rgba(4, 8, 16, 0.7);
   backdrop-filter: blur(4px);
 }
@@ -663,9 +666,12 @@ button {
 }
 
 .modal {
+  margin: auto;
   width: min(480px, 100%);
-  max-height: min(88vh, 640px);
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: var(--bg-raised);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-card);
